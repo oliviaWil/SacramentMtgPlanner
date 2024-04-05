@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SacramentMtgPlanner.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<SacramentMtgPlannerContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SacramentMtgPlannerContext") ?? throw new InvalidOperationException("Connection string 'SacramentMtgPlannerContext' not found.")));
 
 var app = builder.Build();
 
