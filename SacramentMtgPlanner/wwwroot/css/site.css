@@ -20,3 +20,27 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/*** Meetings/Index CSS ***/
+.add-form-group
+{
+    padding: 1rem 1rem;
+}
+
+.add-form-group label
+{
+    padding-bottom: 5px;
+}
+
+.add-form-group span
+{
+    font-style: italic;
+    display: block;
+}
+
+.add-italics
+{
+    font-style: italic;
+    padding: 0.5rem 1rem;
+    display: block;
+}
