@@ -79,12 +79,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ClosingPrayer)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Speakers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Topics)
-            </td>
+                <td>
+                    @foreach (var speaker in item.Speakers)
+                    {
+                        @speaker <br />
+                    }
+                </td>
+                <td>
+                    @foreach (var topic in item.Topics)
+                    {
+                        @topic <br />
+                    }
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

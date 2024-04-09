@@ -5,9 +5,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Meeting</h4>
+<h1>Edit Meeting</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -30,14 +28,20 @@
                 <span asp-validation-for="Meeting.OpeningHymn" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Meeting.OpeningPrayer" class="control-label"></label>
+                <input asp-for="Meeting.OpeningPrayer" class="form-control" />
+                <span asp-validation-for="Meeting.OpeningPrayer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Meeting.SacramentHymn" class="control-label"></label>
                 <input asp-for="Meeting.SacramentHymn" class="form-control" />
                 <span asp-validation-for="Meeting.SacramentHymn" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Meeting.ClosingHymn" class="control-label"></label>
-                <input asp-for="Meeting.ClosingHymn" class="form-control" />
-                <span asp-validation-for="Meeting.ClosingHymn" class="text-danger"></span>
+            <div id="speakersContainer">
+                <!-- Input fields for speakers and topics will be dynamically added here -->
+            </div>
+            <div class="add-form-group">
+                <button type="button" id="addSpeaker" class="btn btn-primary">Add Speaker</button>
             </div>
             <div class="form-group">
                 <label asp-for="Meeting.MusicalNumber" class="control-label"></label>
@@ -50,24 +54,14 @@
                 <span asp-validation-for="Meeting.IntermediateHymn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Meeting.OpeningPrayer" class="control-label"></label>
-                <input asp-for="Meeting.OpeningPrayer" class="form-control" />
-                <span asp-validation-for="Meeting.OpeningPrayer" class="text-danger"></span>
+                <label asp-for="Meeting.ClosingHymn" class="control-label"></label>
+                <input asp-for="Meeting.ClosingHymn" class="form-control" />
+                <span asp-validation-for="Meeting.ClosingHymn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Meeting.ClosingPrayer" class="control-label"></label>
                 <input asp-for="Meeting.ClosingPrayer" class="form-control" />
                 <span asp-validation-for="Meeting.ClosingPrayer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Meeting.Speakers" class="control-label"></label>
-                <input asp-for="Meeting.Speakers" class="form-control" />
-                <span asp-validation-for="Meeting.Speakers" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Meeting.Topics" class="control-label"></label>
-                <input asp-for="Meeting.Topics" class="form-control" />
-                <span asp-validation-for="Meeting.Topics" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -77,9 +71,59 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Back to All Meetings</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script defer>
+        var speakersContainer = document.getElementById('speakersContainer');
+        var speakersData = @Html.Raw(Json.Serialize(Model.Meeting.Speakers));
+        var topicsData = @Html.Raw(Json.Serialize(Model.Meeting.Topics));
+        var maxLength = Math.max(speakersData.length, topicsData.length);
+
+        for (var i = 0; i < maxLength; i++) {
+            var speakerName = speakersData[i] || ''; // Default to empty string if no speaker at index i
+            var topic = topicsData[i] || ''; // Default to empty string if no topic at index i
+
+            // Check if both speakerName and topic are not empty strings
+            if (speakerName.trim() !== '' && topic.trim() !== '') {
+                var speakerFormGroup = document.createElement('div');
+                speakerFormGroup.classList.add('form-group');
+                speakerFormGroup.innerHTML = `
+                    <label class="control-label">Speaker</label>
+                    <input name="Meeting.Speakers" class="form-control" value="${speakerName}" />
+                    <label class="control-label">Topic</label>
+                    <input name="Meeting.Topics" class="form-control" value="${topic}" />
+                `;
+                speakersContainer.appendChild(speakerFormGroup);
+            }
+            else{
+                speakersData.splice(i, 1);
+            }
+        }
+
+        document.getElementById('addSpeaker').addEventListener('click', function () {
+            var speakersContainer = document.getElementById('speakersContainer');
+
+            var newSpeaker = document.createElement('div');
+            newSpeaker.classList.add('add-form-group');
+            newSpeaker.innerHTML = `
+                                <label class="control-label">Speaker</label>
+                                <input name="Meeting.Speakers" class="form-control" />
+                            `;
+            speakersContainer.appendChild(newSpeaker);
+
+            var newTopic = document.createElement('div');
+            newTopic.classList.add('add-form-group');
+            newTopic.innerHTML = `
+                                <label class="control-label">Topic</label>
+                                <input name="Meeting.Topics" class="form-control" />
+                            `;
+            speakersContainer.appendChild(newTopic);
+        });
+    </script>
 }

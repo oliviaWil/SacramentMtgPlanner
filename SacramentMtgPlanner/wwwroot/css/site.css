@@ -21,12 +21,12 @@ body {
 }
 
 /*** Meetings/Create CSS ***/
-.add-form-group
+.add-form-group, .form-group
 {
     padding: 1rem 1rem;
 }
 
-.add-form-group label
+.add-form-group label, .form-group
 {
     padding-bottom: 5px;
 }
@@ -43,6 +43,8 @@ body {
     padding: 0.5rem 1rem;
     display: block;
 }
+
+
 
 body {
     background-color: #FFFDC2;
