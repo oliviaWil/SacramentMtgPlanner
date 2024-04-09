@@ -45,6 +45,7 @@ namespace SacramentMtgPlanner.Models
         public string ClosingPrayer { get; set; }
 
         [Required]
+
         public List<String> Speakers { get; set; } = new List<String>();
         [Required]
         public List<String> Topics { get; set; } = new List<String>();
