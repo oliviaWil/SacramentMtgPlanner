@@ -1,6 +1,5 @@
-html {
-  font-size: 14px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap') 
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap')
 
 @media (min-width: 768px) {
   html {
@@ -43,4 +42,45 @@ body {
     font-style: italic;
     padding: 0.5rem 1rem;
     display: block;
+}
+
+body {
+    background-color: #FFFDC2;
+}
+
+footer {
+    background-color: #4F2903 !important;
+}
+
+header {
+    background-color: #4F2903 !important;
+    color: #00A3F5 !important;
+}
+
+.text-muted {
+    color: #0AFFEF !important;
+}
+
+.navbar-light .navbar-brand {
+    color: #00A3F5 !important;
+}
+
+.text-dark {
+    color: #00A3F5 !important;
+}
+
+.bg-white {
+    background-color: #4F2903 !important;
+}
+
+body {
+    font-family: "Crimson Text", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1 {
+    font-family: "Indie Flower", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
