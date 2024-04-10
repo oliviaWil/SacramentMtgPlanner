@@ -1,0 +1,43 @@
+﻿@page
+@model SacramentMtgPlanner.Pages.Meetings.SpeakersModel
+
+@{
+    ViewData["Title"] = "Speakers";
+}
+
+<h1>Speakers and Topics</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Meeting[0].Speakers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meeting[0].Topics)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Meeting) {
+        <tr>
+                <td>
+                    @foreach (var speaker in item.Speakers)
+                    {
+                        @speaker <br />
+                    }
+                </td>
+                <td>
+                    @foreach (var topic in item.Topics)
+                    {
+                        @topic <br />
+                    }
+                </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.Id">View Meeting Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
