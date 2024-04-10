@@ -14,7 +14,9 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].DateOfMeeting)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
+                    @Html.DisplayNameFor(model => model.Meeting[0].DateOfMeeting)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Meeting[0].ConductingLeader)
@@ -41,7 +43,9 @@
                 @Html.DisplayNameFor(model => model.Meeting[0].ClosingPrayer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].Speakers)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
+                    @Html.DisplayNameFor(model => model.Meeting[0].Speakers)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Meeting[0].Topics)

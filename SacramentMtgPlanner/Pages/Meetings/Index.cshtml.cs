@@ -19,11 +19,46 @@ namespace SacramentMtgPlanner.Pages.Meetings
             _context = context;
         }
 
-        public IList<Meeting> Meeting { get;set; } = default!;
+        public string SpeakerSort { get; set; }
+        public string DateSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-        public async Task OnGetAsync()
+        public IList<Meeting> Meeting { get; set; }
+
+        public async Task OnGetAsync(string sortOrder)
         {
-            Meeting = await _context.Meeting.ToListAsync();
+            // using System;
+            SpeakerSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+
+            IQueryable<Meeting> studentsIQ = from s in _context.Meeting
+                                             select s;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    studentsIQ = studentsIQ.OrderByDescending(s => s.Speakers);
+                    break;
+                case "Date":
+                    studentsIQ = studentsIQ.OrderBy(s => s.DateOfMeeting);
+                    break;
+                case "date_desc":
+                    studentsIQ = studentsIQ.OrderByDescending(s => s.DateOfMeeting);
+                    break;
+                default:
+                    studentsIQ = studentsIQ.OrderBy(s => s.Speakers);
+                    break;
+            }
+
+            Meeting = await studentsIQ.AsNoTracking().ToListAsync();
         }
+
+        //public IList<Meeting> Meeting { get;set; } = default!;
+
+        //public async Task OnGetAsync()
+        //{
+        //    Meeting = await _context.Meeting.ToListAsync();
+        //}
     }
 }
